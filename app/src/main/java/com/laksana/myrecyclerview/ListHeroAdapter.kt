@@ -1,7 +1,6 @@
 package com.laksana.myrecyclerview
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.laksana.myrecyclerview.databinding.ItemRowHeroBinding
@@ -16,7 +15,13 @@ class ListHeroAdapter(private val listHero: ArrayList<Hero>): RecyclerView.Adapt
 
 
     class ListViewHolder(var binding: ItemRowHeroBinding) : RecyclerView.ViewHolder(binding.root) {
-
+        fun bind(hero: Hero) {
+            with(binding) {
+                imgItemPhoto.setImageResource(hero.photo)
+                tvItemName.text = hero.name
+                tvItemDescription.text = hero.description
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
@@ -25,11 +30,14 @@ class ListHeroAdapter(private val listHero: ArrayList<Hero>): RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val (name, description, photo) = listHero[position]
-        holder.binding.imgItemPhoto.setImageResource(photo)
-        holder.binding.tvItemName.text = name
-        holder.binding.tvItemDescription.text = description
 
+        val name = listHero[position]
+        val description = listHero[position]
+        val photo = listHero[position]
+
+        holder.bind(name)
+        holder.bind(description)
+        holder.bind(photo)
 
         holder.itemView.setOnClickListener {
             onItemClickCallback.onItemClicked(listHero[holder.adapterPosition])
